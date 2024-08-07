@@ -1,0 +1,20 @@
+name: Long running workflow
+on: 
+  push:
+    branches:
+      - main
+concurrency:
+  group: ${{github.ref}}
+  cancel-in-progress: true
+jobs:
+  run-log-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v3
+      - name: simulate long running task
+        run: |
+          echo "Starting a long running task"
+          sleep 250
+          echo "task completed"
+          
